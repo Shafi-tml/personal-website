@@ -1,12 +1,5 @@
 {
   "version": 1,
   "include": ["/*"],
-  "exclude": ["/_next/*", "/static/*"],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "/$1",
-      "continue": true
-    }
-  ]
+  "exclude": []
 } 

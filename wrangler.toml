@@ -1,3 +1,9 @@
+[site]
+bucket = "./out"
+
 [build]
 command = "npm run build"
-pages_build_output_dir = "out"
+output_dir = "out"
+
+[build.upload]
+format = "directory"
