@@ -13,26 +13,44 @@ export interface BlogPost {
   content: string
 }
 
-export function getAllPosts(): BlogPost[] {
-  const fileNames = fs.readdirSync(postsDirectory)
-  const allPostsData = fileNames
-    .filter(fileName => fileName.endsWith('.mdx'))
-    .map(fileName => {
-      const slug = fileName.replace(/\.mdx$/, '')
-      const fullPath = path.join(postsDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data, content } = matter(fileContents)
+export async function getBlogPost(slug: string) {
+  const fullPath = path.join(postsDirectory, `${slug}.mdx`)
+  
+  try {
+    const fileContents = fs.readFileSync(fullPath, 'utf8')
+    const { data, content } = matter(fileContents)
+    
+    return {
+      slug,
+      title: data.title,
+      date: data.date,
+      content
+    }
+  } catch (error) {
+    return null
+  }
+}
 
+export async function getAllPosts() {
+  const files = fs.readdirSync(postsDirectory)
+  const posts = files
+    .filter(file => file.endsWith('.mdx'))
+    .map(file => {
+      const slug = file.replace(/\.mdx$/, '')
+      const fullPath = path.join(postsDirectory, file)
+      const fileContents = fs.readFileSync(fullPath, 'utf8')
+      const { data } = matter(fileContents)
+      
       return {
         slug,
         title: data.title,
-        date: format(new Date(data.date), 'MMMM d, yyyy'),
-        excerpt: data.excerpt || '',
-        content
+        date: data.date,
+        excerpt: data.excerpt || ''
       }
     })
-
-  return allPostsData.sort((a, b) => (a.date < b.date ? 1 : -1))
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    
+  return posts
 }
 
 export function getPostBySlug(slug: string): BlogPost | null {

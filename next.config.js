@@ -1,11 +1,12 @@
+const withMDX = require('@next/mdx')()
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   experimental: {
-    mdxRs: true,
-    serverComponentsExternalPackages: ['next-mdx-remote']
+    mdxRs: true
   },
   webpack: (config) => {
     config.resolve.alias = {
@@ -17,4 +18,4 @@ const nextConfig = {
   output: 'standalone'
 }
 
-module.exports = nextConfig 
+module.exports = withMDX(nextConfig) 
