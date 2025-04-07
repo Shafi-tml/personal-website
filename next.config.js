@@ -8,9 +8,10 @@ const nextConfig = {
   },
   output: 'export',
   images: {
-    unoptimized: true
+    unoptimized: true,
+    domains: ['e4bda9e1.personal-website-72m.pages.dev']
   },
-  assetPrefix: '',
+  trailingSlash: true,
   distDir: 'out'
 }
 
