@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { getLatestPosts } from '@/lib/blog'
+import { getLatestPosts } from './lib/blog'
 import { format } from 'date-fns'
 
-export default function Home() {
-  const latestPosts = getLatestPosts()
+export default async function Home() {
+  const latestPosts = await getLatestPosts()
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between">

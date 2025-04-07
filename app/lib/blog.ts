@@ -9,11 +9,11 @@ export interface BlogPost {
   slug: string
   title: string
   date: string
-  excerpt: string
-  content: string
+  excerpt?: string
+  content?: string
 }
 
-export async function getBlogPost(slug: string) {
+export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   const fullPath = path.join(postsDirectory, `${slug}.mdx`)
   
   try {
@@ -24,14 +24,15 @@ export async function getBlogPost(slug: string) {
       slug,
       title: data.title,
       date: data.date,
-      content
+      content,
+      excerpt: data.excerpt
     }
   } catch (error) {
     return null
   }
 }
 
-export async function getAllPosts() {
+export async function getAllPosts(): Promise<BlogPost[]> {
   const files = fs.readdirSync(postsDirectory)
   const posts = files
     .filter(file => file.endsWith('.mdx'))
@@ -71,7 +72,7 @@ export function getPostBySlug(slug: string): BlogPost | null {
   }
 }
 
-export function getLatestPosts(count: number = 3): BlogPost[] {
-  const posts = getAllPosts()
+export async function getLatestPosts(count: number = 3): Promise<BlogPost[]> {
+  const posts = await getAllPosts()
   return posts.slice(0, count)
 } 
