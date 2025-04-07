@@ -1,6 +1,14 @@
 [build]
 command = "npm run build"
-pages_build_output_dir = ".next"
+publish = ".next/static"
 
 [build.environment]
-NODE_VERSION = "18.17.0" 
+NODE_VERSION = "18"
+
+[site]
+bucket = "./out"
+entry-point = "workers-site"
+
+[env.production]
+name = "personal-website"
+routes = ["/*"] 
