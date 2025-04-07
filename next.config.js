@@ -6,19 +6,11 @@ const nextConfig = {
   experimental: {
     mdxRs: true
   },
-  webpack: (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      '@': '.'
-    }
-    return config
-  },
   output: 'export',
   images: {
     unoptimized: true
   },
-  trailingSlash: false,
-  basePath: '',
+  assetPrefix: '',
   distDir: 'out'
 }
 
