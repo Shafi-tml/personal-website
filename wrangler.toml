@@ -1,9 +1,0 @@
-[site]
-bucket = "./out"
-
-[build]
-command = "npm run build"
-output_dir = "out"
-
-[build.upload]
-format = "directory"
