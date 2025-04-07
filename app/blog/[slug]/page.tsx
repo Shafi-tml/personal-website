@@ -35,7 +35,9 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       <div className="text-gray-600 mb-8">
         {new Date(post.date).toLocaleDateString()}
       </div>
-      <MDXRemote source={post.content} />
+      {post.content && typeof post.content === 'string' && (
+        <MDXRemote source={post.content} />
+      )}
       <div className="mt-16">
         <Link
           href="/blog"
