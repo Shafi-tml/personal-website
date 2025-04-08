@@ -37,11 +37,13 @@ export default async function BlogPost({ params }: { params: { slug: string } })
   }
 
   return (
-    <article className="prose lg:prose-xl mx-auto px-4">
-      <h1>{post.title}</h1>
-      <div className="text-gray-600 mb-8">
-        {new Date(post.date).toLocaleDateString()}
-      </div>
+    <article className="prose lg:prose-xl mx-auto px-4 py-16">
+      <header className="mb-16">
+        <h1 className="mb-4">{post.title}</h1>
+        <time dateTime={post.date} className="text-gray-600 text-sm">
+          {format(new Date(post.date), 'MMMM d, yyyy')}
+        </time>
+      </header>
       {post.content && typeof post.content === 'string' && (
         <MDXRemote source={post.content} />
       )}
