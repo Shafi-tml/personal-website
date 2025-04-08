@@ -36,6 +36,9 @@ export default async function BlogPost({ params }: { params: { slug: string } })
     )
   }
 
+  // Remove any existing h1 tags from the content
+  const contentWithoutTitle = post.content?.replace(/^#\s.*$/m, '').trim()
+
   return (
     <article className="prose lg:prose-xl mx-auto px-4 py-16">
       <header className="mb-16">
@@ -44,8 +47,8 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           {format(new Date(post.date), 'MMMM d, yyyy')}
         </time>
       </header>
-      {post.content && typeof post.content === 'string' && (
-        <MDXRemote source={post.content} />
+      {contentWithoutTitle && typeof contentWithoutTitle === 'string' && (
+        <MDXRemote source={contentWithoutTitle} />
       )}
       <div className="mt-16">
         <Link
