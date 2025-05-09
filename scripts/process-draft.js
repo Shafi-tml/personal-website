@@ -18,7 +18,7 @@ function processDrafts() {
   const files = fs.readdirSync(DRAFTS_DIR);
   const markdownFiles = files.filter(file => 
     file.endsWith('.md') || file.endsWith('.mdx')
-  );
+  ).filter(file => file !== 'template.md');
 
   markdownFiles.forEach(processFile);
 }
